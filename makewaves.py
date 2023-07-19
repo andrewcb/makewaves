@@ -28,7 +28,6 @@ def make_wavetable(file, waves, wave_samples=1024):
 	output.setnframes(wave_samples*len(waves))
 
 	for (waveindex, func) in enumerate(waves):
-		print("Wave %d"%waveindex)
 		buf = bytearray()
 		for s in range(wave_samples):
 			phase = s/wave_samples
@@ -37,7 +36,6 @@ def make_wavetable(file, waves, wave_samples=1024):
 				buf += struct.pack("<h", int(v * 0x7fff))
 			except struct.error:
 				raise ValueError("Wave %i, phase %f: invalid value: %f"%(waveindex, phase, v))
-		print("Writing %d bytes"%len(buf))
 		output.writeframes(buf)
 	output.close()
 
